@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DailyBriefs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdown = document.getElementById('news-category');
+            dropdown.addEventListener('change', function() {
+                fetchArticles(dropdown.value);
+            });
+
+            function fetchArticles(category) {
+                fetch(`/get_articles/${category}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const articlesDiv = document.getElementById('articles');
+                        articlesDiv.innerHTML = '';
+                        if (data.articles) {
+                            data.articles.forEach(article => {
+                                const articleElement = document.createElement('div');
+                                articleElement.classList.add('article');
+                                
+                                const titleElement = document.createElement('a');
+                                titleElement.href = article.url;
+                                titleElement.target = '_blank';
+                                titleElement.innerHTML = `<strong>${article.title}</strong>`;
+                                articleElement.appendChild(titleElement);
+                                
+                                const summaryElement = document.createElement('p');
+                                summaryElement.innerText = article.summary;
+                                articleElement.appendChild(summaryElement);
+                                
+                                articlesDiv.appendChild(articleElement);
+                            });
+                        } else {
+                            articlesDiv.innerText = 'An error occurred while fetching the articles.';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        document.getElementById('articles').innerText = 'An error occurred while fetching the articles.';
+                    });
+            }
+
+            // Fetch initial articles for default category
+            fetchArticles(dropdown.value);
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='images/image-removebg-preview.png') }}" alt="DailyBriefs Logo" class="logo">
+            </div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about-us">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="home" class="section">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Welcome to DailyBriefs!</h1>
+                    <p>Bored of long articles?</p> 
+                    <p>This is today's news. summarized.</p>
+                    <select id="news-category">
+                        <option value="sports">Sports</option>
+                        <option value="technology">Technology</option>
+                        <option value="stock_market">Stock Market</option>
+                    </select>
+                    <div id="articles" class="summ"></div>
+                </div>
+            </div>
+        </section>
+        <section id="about-us" class="section">
+            <div class="about-container">
+                <h1>About Us</h1>
+                <div class="team-members">
+                    <div class="team-member">
+                        <img src="{{ url_for('static', filename='images/malak.png') }}" alt="Malak Al-Hanafi">
+                        <h3>Malak Al-Hanafi</h3>
+                        <p class="title">4th year Mechatronics + AI</p>
+                        <p>I'm Malak Al-Hanafi, a 4th year student pursuing a dual degree in Mechatronics and AI at Western University. I love horse-riding and working on robotics and AI projects.</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="{{ url_for('static', filename='images/andre.png') }}" alt="Andre Wang">
+                        <h3>Andre Wang</h3>
+                        <p class="title">Rising junior at NYU</p>
+                        <p>I'm Andre Wang, a rising junior majoring in Mathematics and Computer Science at New York University. I am interested in Robotics and SLAM. I also enjoy weightlifting and basketball.</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="{{ url_for('static', filename='images/mason.png') }}" alt="Mason Zhang">
+                        <h3>Mason Zhang</h3>
+                        <p class="title">Freshman at UC Berkeley</p>
+                        <p>I'm Mason Zhang, an incoming freshman majoring in Computer Science and Mathematics at the University of California, Berkeley. I enjoy basketball and going outdoors.</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="{{ url_for('static', filename='images/natan.png') }}" alt="Natan Kassa">
+                        <h3>Natan Kassa</h3>
+                        <p class="title">Recent graduate from USC</p>
+                        <p>I'm Natan Kassa, a recent graduate from USC with degrees in Computer Engineering and Computer Science. I love playing basketball and traveling.</p>
+                    </div>
+                </div>
+                <button onclick="scrollToSection('home')">Back to Home</button>
+            </div>
+        </section>
+    </main>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
