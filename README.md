@@ -1,11 +1,11 @@
-# backend-hackathon
+# DailyBriefs
 
 
-# News Summarization Backend
+## [News Summarization Backend](https://github.com/andrewangbl/backend-hackathon)
 
 This project is a backend service that automatically fetches, summarizes, and stores news articles from various categories using AI-powered summarization.
 
-## How It Works
+### How It Works
 
 The backend follows a pipeline to process news articles:
 
@@ -14,19 +14,19 @@ The backend follows a pipeline to process news articles:
 3. **AI Summarization**: The scraped content is summarized using AI models.
 4. **Database Storage**: Finally, the summaries are stored in a Supabase database.
 
-### Detailed Pipeline
+#### Detailed Pipeline
 
-#### 1. Fetching News URLs
+##### 1. Fetching News URLs
 
 - The `getNewsData` function in `ai_agent.py` searches Google News for articles based on a query and number of results.
 - For stock news, `get_stock_news_data` is used to specifically fetch Yahoo Finance articles.
 
-#### 2. Web Scraping
+##### 2. Web Scraping
 
 - The `get_news_data_from_url` function in `ai_agent.py` scrapes the content from each news URL.
 - It uses BeautifulSoup to parse the HTML and extract relevant information like title, text, date, and source.
 
-#### 3. AI Summarization
+##### 3. AI Summarization
 
 - Three summarization functions are used for different news categories:
   - `sm_summary` for stock market news
@@ -35,21 +35,21 @@ The backend follows a pipeline to process news articles:
 - These functions use OpenAI's GPT model via the LangChain library to generate summaries.
 - Custom prompts are used to guide the AI in creating relevant summaries for each category.
 
-#### 4. Database Storage
+##### 4. Database Storage
 
 - The `insert_summary` function in `app.py` handles storing summaries in Supabase.
 - It creates a data object with the current date, summary, news title, and URL.
 - The data is then inserted into the appropriate table in Supabase.
 
-### API Endpoint
+#### API Endpoint
 
 - The `/upload_all/` endpoint triggers the summarization and upload process for all news categories.
 - It uses FastAPI's `BackgroundTasks` to run the processes asynchronously.
 
-## GPT-3.5-turbo Model Usage
+### GPT-3.5-turbo Model Usage
 This project utilizes OpenAI's GPT-3.5-turbo model for summarizing news articles. We employ the map-reduce method to efficiently process longer texts while staying within the model's token limit.
 
-### Map-Reduce Method
+#### Map-Reduce Method
 
 The map-reduce approach is implemented using LangChain's `load_summarize_chain` function. This method involves:
 
@@ -59,7 +59,7 @@ The map-reduce approach is implemented using LangChain's `load_summarize_chain` 
 
 3. **Reducing**: The individual summaries are combined into a final summary.
 
-### Prompt Engineering
+#### Prompt Engineering
 
 We use carefully crafted prompts for each news category (stock market, sports, and technology). These prompts are designed to:
 
@@ -99,7 +99,7 @@ Example of a map prompt (for stock market news):
     """
 ```
 
-## Setup and Running
+### Setup and Running
 
 1. Install dependencies:
    ```
