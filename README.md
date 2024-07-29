@@ -1,7 +1,33 @@
 # DailyBriefs
 
+## Website
 
-## [News Summarization Backend](https://github.com/andrewangbl/backend-hackathon)
+The frontend of DailyBriefs is built using HTML, CSS, and JavaScript. It provides a user-friendly interface for displaying summarized news articles in various categories such as sports, technology, and stock market news.
+
+### How It Works
+
+1. **HTML Structure**: The main structure of the frontend is defined in the `index.html` file. It includes a header, a main section with a dropdown for selecting news categories, and a section for displaying the articles.
+
+2. **CSS Styling**: The styling is handled by the `style.css` file, which ensures a clean and responsive design. Key elements like the header, dropdown, and article summaries are styled for better user experience.
+
+3. **JavaScript Functionality**: The core functionality is implemented in the `script.js` file. It includes event listeners and functions to fetch and display articles based on the selected category.
+
+
+### Fetching Articles from Supabase
+
+When a user selects a category (e.g., sports or technology) from the dropdown, the frontend fetches the latest news summaries from the Supabase database for the current date. This is done through an API endpoint that the backend provides.
+
+The backend has a route `/get_articles/<category>` that handles fetching articles from Supabase. The function `get_articles_from_supabase` is used to query the database for articles with the current date.
+
+
+### Example: Sports News
+
+When the user selects "Sports" from the dropdown, the frontend fetches the latest sports news summaries from the backend and displays them. Below is an example of how the sports news is presented:
+
+![Sports News](frontend/static/images/sports_news.png)
+
+
+## [News Summarization AI Agent](https://github.com/andrewangbl/backend-hackathon)
 
 This project is a backend service that automatically fetches, summarizes, and stores news articles from various categories using AI-powered summarization.
 
@@ -98,6 +124,10 @@ Example of a map prompt (for stock market news):
     Summary:
     """
 ```
+
+Below is an example of the summarization result for stock market news:
+
+![Stock News](backend/static/images/stock_news.png)
 
 ### Setup and Running
 
