@@ -24,7 +24,7 @@ The backend has a route `/get_articles/<category>` that handles fetching article
 
 When the user selects "Sports" from the dropdown, the frontend fetches the latest sports news summaries from the backend and displays them. Below is an example of how the sports news is presented:
 
-![Sports News](frontend/static/images/sports_news.png)
+![Sports News](image/sports_news.png)
 
 
 ## [News Summarization AI Agent](https://github.com/andrewangbl/backend-hackathon)
@@ -127,7 +127,7 @@ Example of a map prompt (for stock market news):
 
 Below is an example of the summarization result for stock market news:
 
-![Stock News](backend/static/images/stock_news.png)
+![Stock News](image/stock_news.png)
 
 ### Setup and Running
 
